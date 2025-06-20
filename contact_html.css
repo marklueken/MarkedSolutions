@@ -18,9 +18,10 @@ a:hover { color:#B2B3B4; }
 			#menu_3720dca3 .mobileEntry { display: block; } 
 			#menu_3720dca3 .normalEntry { display: none; } 
 		}
-#button_1b0e3570 { vertical-align: bottom; border-radius: 2px; position:relative; display: inline-block; width:150px; height:40px; background-color:#E5B340;  }
+#button_1b0e3570 { vertical-align: bottom; border-radius: 2px; position:relative; display: inline-block; width:150px; height:40px; background-color:#FF0000;  }
 #button_1b0e3570:hover { background-color:#FEE556;  }
 #button_1b0e3570:hover span { color:#444444; }
+#img_7f894697:hover { filter: brightness( 80%);  } 
 body { background-color:#737373; padding:0;  margin: 0; }
 .textstyle1 { text-align:center; }
 #container_51330adb { vertical-align: top; position:relative; display: inline-block; width:100%; min-height:91px; max-width:1024px; background-color:#FFFFFF; background-image: url(rc_images/skyscraper1_dark.jpg); background-position:center center; background-size:cover;  }
@@ -67,6 +68,8 @@ body { background-color:#737373; padding:0;  margin: 0; }
 .vcenterstyle1 { display: table; width: 100%; height: 100%; }
 .vcenterstyle2 { display: table-cell; vertical-align: middle; }
 .textstyle17 { font-size:12pt; font-family:Segoe, 'Segoe UI', 'Helvetica Neue', sans-serif; color:#000000; font-weight:bold;  }
+.textstyle18 { font-size:16pt; font-family:Segoe, 'Segoe UI', 'Helvetica Neue', sans-serif; color:#FFFFFF; line-height: 1.5;  }
+#img_7f894697 { border-radius: 15px; position:absolute; left:11%; top:7%; width:19%; background:none; height:auto;  }
 @media only screen and (max-width: 600px)
 {
 		#container_66a77ee4 { width:100%;  }
