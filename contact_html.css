@@ -54,21 +54,20 @@ body { background-color:#737373; padding:0;  margin: 0; }
 #container_65d4ce54_padding { margin: 10px; display: block;  }
 #container_66a77ee4 { vertical-align: top; position:relative; display: inline-block; width:33%; min-height:150px; background:none;  }
 #container_66a77ee4_padding { margin: 10px; display: block;  }
-.textstyle13 { font-size:14pt; font-family:Segoe, 'Segoe UI', 'Helvetica Neue', sans-serif; color:#000000; font-weight:bold;  }
-.textstyle14 { font-size:12pt; font-family:Segoe, 'Segoe UI', 'Helvetica Neue', sans-serif; color:#000000;  }
+.textstyle13 { font-size:16pt; font-family:Segoe, 'Segoe UI', 'Helvetica Neue', sans-serif; color:#000000; font-weight:bold;  }
 #container_785adad6 { vertical-align: top; position:relative; display: inline-block; width:33%; min-height:150px; background:none;  }
 #container_785adad6_padding { margin: 10px; display: block;  }
+.textstyle14 { font-size:12pt; font-family:Segoe, 'Segoe UI', 'Helvetica Neue', sans-serif; color:#000000;  }
 #container_78d937b7 { vertical-align: top; position:relative; display: inline-block; width:33%; min-height:150px; background:none;  }
 #container_78d937b7_padding { margin: 10px; display: block;  }
-.textstyle15 { font-size:14pt; font-family:Arial, Helvetica, sans-serif; color:#000000; font-weight:bold;  }
-.textstyle16 { font-size:12pt; font-family:Segoe, 'Segoe UI', 'Helvetica Neue', sans-serif; color:#000000; font-weight:bold; line-height: 1.5;  }
+.textstyle15 { font-size:12pt; font-family:Segoe, 'Segoe UI', 'Helvetica Neue', sans-serif; color:#000000; font-weight:bold; line-height: 1.5;  }
 #container_7b662bd8 { vertical-align: top; position:relative; display: inline-block; width:100%; min-height:70px; max-width:1024px; background-color:#FFFFFF;  }
 #container_35a78225 { vertical-align: top; position:relative; display: inline-block; width:100%; min-height:150px; max-width:800px; background:none;  }
 #container_35a78225_padding { margin: 10px; display: block;  }
 .vcenterstyle1 { display: table; width: 100%; height: 100%; }
 .vcenterstyle2 { display: table-cell; vertical-align: middle; }
-.textstyle17 { font-size:12pt; font-family:Segoe, 'Segoe UI', 'Helvetica Neue', sans-serif; color:#000000; font-weight:bold;  }
-.textstyle18 { font-size:16pt; font-family:Segoe, 'Segoe UI', 'Helvetica Neue', sans-serif; color:#FFFFFF; line-height: 1.5;  }
+.textstyle16 { font-size:12pt; font-family:Segoe, 'Segoe UI', 'Helvetica Neue', sans-serif; color:#000000; font-weight:bold;  }
+.textstyle17 { font-size:16pt; font-family:Segoe, 'Segoe UI', 'Helvetica Neue', sans-serif; color:#FFFFFF; line-height: 1.5;  }
 #img_7f894697 { border-radius: 15px; position:absolute; left:11%; top:7%; width:19%; background:none; height:auto;  }
 @media only screen and (max-width: 600px)
 {
