@@ -6,6 +6,8 @@
     <meta name="description" content="Marked Solutions offers expert cybersecurity services including penetration testing, red team operations, AI-assisted pentesting, AI adoption security, security training, and social engineering assessments. Precision. Persistence. Protection.">
     <title>Marked Solutions - Cybersecurity Excellence</title>
     <link rel="canonical" href="https://marked.solutions">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
@@ -31,6 +33,7 @@
       "logo": "https://marked.solutions/logo.png",
       "description": "Expert cybersecurity consultancy specializing in penetration testing, red team operations, AI-assisted pentesting, AI adoption security, security training, and social engineering assessments.",
       "telephone": "+12177946999",
+      "email": "Mark@marked.solutions",
       "slogan": "Precision. Persistence. Protection.",
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
@@ -148,7 +151,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
+            background:
                 radial-gradient(circle at 20% 50%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
         }
@@ -316,6 +319,24 @@
         .phone-number:hover {
             transform: scale(1.05);
             text-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+        }
+
+        .email-link {
+            display: inline-block;
+            color: #fff;
+            font-size: 1.1rem;
+            text-decoration: none;
+            margin-top: 0.5rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid #444;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .email-link:hover {
+            border-color: #dc2626;
+            color: #dc2626;
+            box-shadow: 0 0 15px rgba(220, 38, 38, 0.3);
         }
 
         /* Footer */
@@ -486,7 +507,7 @@
                     <p class="hero-description">
                         Born from a passion for digital fortification and puzzle-solving, Marked Solutions merges technical excellence with a hacker's mindset. Whether protecting data or hunting exploits—we dig deeper.
                     </p>
-                    <a href="#contact" class="cta-button">Get Started</a>
+                    <a href="#contact" class="cta-button">Book a Consultation</a>
                 </div>
             </div>
         </section>
@@ -532,12 +553,12 @@
                         <p>Founded by cybersecurity experts with a passion for puzzle-solving and digital exploration, our mission is clear: to uncover weaknesses before real attackers do.</p>
                         <p>We bring together experience from red team operations and real-world persistence simulations to go beyond surface-level scans. From corporate infrastructure to public-facing platforms, we expose blind spots others miss—because we know where to look.</p>
                     </div>
-                    
+
                     <div class="about-details">
                         <p>Marked Solutions is a cybersecurity consultancy specializing in advanced penetration testing and adversary simulation. Established by a team of experienced security professionals, we are committed to helping organizations proactively identify and remediate vulnerabilities before they can be exploited by malicious actors.</p>
-                        
+
                         <p>Our services are grounded in real-world tactics, techniques, and procedures (TTPs), drawing from extensive expertise in red team operations, threat modeling, and custom training environments. From secure enterprises to high-risk operational environments, we deliver precision-oriented assessments that align with each client's unique threat landscape.</p>
-                        
+
                         <p>At Marked Solutions, we uphold the highest standards of confidentiality, integrity, and technical excellence. Our mission is to enhance digital resilience through rigorous testing, actionable insights, and a relentless focus on protecting what matters most.</p>
                     </div>
                 </div>
@@ -547,10 +568,10 @@
         <section id="contact" class="contact">
             <div class="container">
                 <h2>Ready to Secure Your Future?</h2>
-                <p class="contact-info">Call us any time for a consultation</p>
+                <p class="contact-info">Call or email us any time for a consultation</p>
                 <a href="tel:+12177946999" class="phone-number">(217) 794-6999</a>
-                <div style="margin-top: 2rem;">
-                    <a href="#contact" class="cta-button">Schedule Consultation</a>
+                <div>
+                    <a href="mailto:Mark@marked.solutions" class="email-link">Mark@marked.solutions</a>
                 </div>
             </div>
         </section>
@@ -558,11 +579,14 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Marked Solutions. All rights reserved. | Precision. Persistence. Protection.</p>
+            <p>&copy; <span id="copyright-year">2026</span> Marked Solutions. All rights reserved. | Precision. Persistence. Protection.</p>
         </div>
     </footer>
 
     <script>
+        // Dynamic copyright year
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
         // Mobile menu functionality
         const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
         const navMenu = document.getElementById('nav-menu');
