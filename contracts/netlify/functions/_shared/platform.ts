@@ -1,5 +1,6 @@
 import { getStore } from '@netlify/blobs';
-import { getUser } from '@netlify/identity';
+import { getUser,admin } from '@netlify/identity';
+import { verifyApprovedAccount } from './access';
 import { timingSafeEqual } from 'node:crypto';
 import { defaultProfile, type Notice } from './core';
 export function env(key:string) { return Netlify.env.get(key); }
@@ -10,7 +11,7 @@ export async function requireUser(req:Request) {
  const user=await getUser();
  if(!user) throw new Response('Sign in to continue.',{status:401});
  const allowed=(env('ALLOWED_EMAILS')||'').split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
- if(!user.confirmedAt||!allowed.includes((user.email||'').toLowerCase())) throw new Response('This account has not been granted access.',{status:403});
+ await verifyApprovedAccount(user,allowed,id=>admin.getUser(id));
  if(req.method!=='GET' && req.headers.get('origin')!==new URL(req.url).origin) throw new Response('Invalid request origin.',{status:403});
  return user;
 }
