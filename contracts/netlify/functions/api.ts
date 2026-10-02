@@ -50,6 +50,6 @@ export default async (req:Request,context:Context)=>{
    await store.setJSON(`decision/${v.id}`,{status:v.status,notes:v.notes,updatedAt:new Date().toISOString()});return json({ok:true});
   }
   return json({error:'Not found.'},404);
- }catch(e){if(e instanceof Response)return e;if(e instanceof z.ZodError)return json({error:'Check the required fields and document size.'},400);return json({error:e instanceof Error?e.message:'Request failed.'},500);}
+ }catch(e){if(e instanceof Response)return json({error:await e.text()},e.status);if(e instanceof z.ZodError)return json({error:'Check the required fields and document size.'},400);return json({error:e instanceof Error?e.message:'Request failed.'},500);}
 };
 export const config:Config={path:'/api/contracts/:action'};
