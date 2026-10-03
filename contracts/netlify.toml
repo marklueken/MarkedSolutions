@@ -1,0 +1,33 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+[build.environment]
+  NODE_VERSION = "22"
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "same-origin"
+    X-Robots-Tag = "noindex, nofollow"
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+[dev]
+  command = "npm run dev"
+  targetPort = 5173
+  port = 8888
+
+[functions."resume-background"]
+  external_node_modules = ["pdf-parse", "@napi-rs/canvas"]
+  included_files = ["node_modules/pdf-parse/node_modules/pdfjs-dist/legacy/build/pdf.worker.mjs"]
+[functions."resume-review"]
+  external_node_modules = ["pdf-parse", "@napi-rs/canvas"]
+  included_files = ["node_modules/pdf-parse/node_modules/pdfjs-dist/legacy/build/pdf.worker.mjs"]
+[functions."resume-webhook"]
+  external_node_modules = ["pdf-parse", "@napi-rs/canvas"]
+  included_files = ["node_modules/pdf-parse/node_modules/pdfjs-dist/legacy/build/pdf.worker.mjs"]
