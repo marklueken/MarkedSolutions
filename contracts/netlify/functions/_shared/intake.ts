@@ -3,10 +3,13 @@ import OpenAI from 'openai';
 import {Resend} from 'resend';
 import {db,env} from './platform';
 import {partnerSchema} from './partners';
-export const draftSchema=partnerSchema.omit({id:true,archived:true,includeInAnalysis:true,resumeText:true});
+export const draftSchema=partnerSchema.omit({id:true,archived:true,includeInAnalysis:true,resumeText:true}).extend({name:z.string().trim().max(150).default('')});
 export const extractionSchema=z.object({profile:draftSchema,evidence:z.array(z.object({field:z.string(),quote:z.string().min(1)})).max(80),warnings:z.array(z.string()).max(30)});
 export function auditExtraction(raw:unknown,text:string){
- const result=extractionSchema.parse(raw);const evidence=result.evidence.filter(e=>Object.keys(result.profile).includes(e.field)&&text.includes(e.quote));
+ const input=z.object({profile:z.record(z.string(),z.unknown()),evidence:extractionSchema.shape.evidence,warnings:extractionSchema.shape.warnings}).parse(raw);
+ const profile:Record<string,unknown>={},validationWarnings:string[]=[];
+ for(const [field,schema] of Object.entries(draftSchema.shape)){const checked=schema.safeParse(input.profile[field]);profile[field]=checked.success?checked.data:field==='availability'?'unknown':'';if(!checked.success)validationWarnings.push(`${field}: invalid extracted value; left blank for review.`);}
+ const result=extractionSchema.parse({...input,profile,warnings:[...input.warnings,...validationWarnings]});const evidence=result.evidence.filter(e=>Object.keys(result.profile).includes(e.field)&&text.includes(e.quote));
  const warnings=[...result.warnings];
  for(const [field,value] of Object.entries(result.profile)){
   if(value&&value!=='unknown'&&!evidence.some(e=>e.field===field)){(result.profile as Record<string,unknown>)[field]=field==='availability'?'unknown':'';warnings.push(`${field}: no supporting resume passage; left blank.`);}
