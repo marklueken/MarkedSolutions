@@ -1,0 +1,4 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';
+import {auditExtraction} from '../netlify/functions/_shared/intake';
+test('unsupported facts are removed and missing availability stays unknown',()=>{const result=auditExtraction({profile:{name:'Jane Doe',email:'invented@example.com',clearance:'Top Secret'},evidence:[{field:'name',quote:'Jane Doe'},{field:'clearance',quote:'Made up claim'}],warnings:[]},'Jane Doe\nCloud engineer');assert.equal(result.profile.email,'');assert.equal(result.profile.clearance,'');assert.equal(result.profile.availability,'unknown');assert.equal(result.evidence.length,1);});
+test('exact quoted claims are retained for human validation',()=>{const r=auditExtraction({profile:{name:'Jane Doe',skills:'Cloud security'},evidence:[{field:'name',quote:'Jane Doe'},{field:'skills',quote:'Cloud security'}],warnings:[]},'Jane Doe\nCloud security');assert.equal(r.profile.skills,'Cloud security');});

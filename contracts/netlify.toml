@@ -21,3 +21,10 @@
   command = "npm run dev"
   targetPort = 5173
   port = 8888
+
+[functions."resume-background"]
+  external_node_modules = ["pdf-parse", "@napi-rs/canvas"]
+[functions."resume-review"]
+  external_node_modules = ["pdf-parse", "@napi-rs/canvas"]
+[functions."resume-webhook"]
+  external_node_modules = ["pdf-parse", "@napi-rs/canvas"]
