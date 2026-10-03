@@ -76,3 +76,8 @@ npx netlify dev --offline
 ```
 
 The example workspace can be reviewed locally. Identity requires a Netlify deployment for a full sign-in test. Run live smoke tests for login, denied access, manual upload, evidence analysis, SAM import, saved decisions, and scheduled dispatch before enabling unattended use.
+
+### Import partners from resume intake CSV
+In Partners, choose **CSV template**, export your resume intake information using those headers, then **Import CSV**. Preview additions and updates before confirming. `name,email` are required; optional fields are `company,location,skills,certifications,clearance,experience,availability,availability_notes,rate_notes,resume_text,notes`. Each row is one independent subcontractor. Use semicolons between skills and standard CSV quoting for commas, quotes, and multiline resume text. Availability is unknown, available, limited, or unavailable. Unknown fields should remain blank rather than be inferred.
+
+Emails match case-insensitively. Reimports update existing partners, preserve blank fields and saved resume files, and preserve existing archive/analysis preferences. New partners are included in analysis; reanalyze an opportunity to use the updated pool. All rows are validated before writes; conflicting duplicate emails are rejected. Directory limit: 200 partners. File limit: 450 KB; resume_text limit: 50,000 characters, with other limits matching the partner form. This imports extracted information; mailbox monitoring and resume-to-CSV extraction are separate intake steps. CSV imports do not attach original resume files.

@@ -19,10 +19,10 @@ export function workerAuthorized(req:Request) {
  const actual=req.headers.get('x-automation-token')||'',expected=env('AUTOMATION_TOKEN')||'';
  return expected.length>=32&&actual.length===expected.length&&timingSafeEqual(Buffer.from(actual),Buffer.from(expected));
 }
-export async function readBody(req:Request) {
+export async function readBody(req:Request,limit=600000) {
  const reader=req.body?.getReader();if(!reader)throw new Error('A request body is required.');
  let size=0; const parts:Uint8Array[]=[];
- while(true){const {value,done}=await reader.read();if(done)break;size+=value.length;if(size>600000){await reader.cancel();throw new Response('Document too large. Maximum 600 KB of extracted text.',{status:413});}parts.push(value);}
+ while(true){const {value,done}=await reader.read();if(done)break;size+=value.length;if(size>limit){await reader.cancel();throw new Response('Document exceeds the upload size limit.',{status:413});}parts.push(value);}
  try{return JSON.parse(Buffer.concat(parts).toString('utf8'));}catch{throw new Response('Invalid JSON.',{status:400});}
 }
 export async function notices():Promise<Notice[]> {

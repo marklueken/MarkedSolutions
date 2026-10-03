@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { partnerMatchSchema } from './partners';
 import { createHash } from 'node:crypto';
 export const profileSchema = z.object({
   company: z.string().min(1).max(120), services: z.string().min(10).max(6000),
@@ -23,6 +24,7 @@ export const analysisSchema = z.object({
   dates:z.array(z.object({label:z.string(),value:z.string(),source:z.string(),quote:z.string()})),
   requirements:z.array(z.object({requirement:z.string(),status:z.enum(['met','unverified','gap']),source:z.string(),quote:z.string()})),
   economics:z.string(),nextAction:z.string(),coverage:z.string(),
+  partnerMatches:z.array(partnerMatchSchema).max(20).default([]),teamCoverage:z.string().default(''),
 });
 export type Analysis = z.infer<typeof analysisSchema> & { analyzedAt:string; sourceHash:string; warnings:string[] };
 export type Source = {name:string;text:string};
@@ -34,7 +36,7 @@ export function normalize(raw:any):Notice {
   const attachments=Array.isArray(raw.resourceLinks)?raw.resourceLinks.filter((v:unknown)=>typeof v==='string'&&v.startsWith('https://')).slice(0,100):[];
   return {id,...metadata,url:`https://sam.gov/opp/${id}/view`,descriptionUrl:raw.description,attachments,sources:[{name:'SAM notice metadata',text:JSON.stringify(metadata,null,2)}],revision:hash({metadata,attachments}),updatedAt:new Date().toISOString(),changed:false};
 }
-export function auditEvidence(a:z.infer<typeof analysisSchema>,sources:Source[]) {
+export function auditEvidence(a:z.input<typeof analysisSchema>,sources:Source[]) {
  const warnings:string[]=[];
  for(const r of [...a.requirements,...a.dates]) {
   const source=sources.find(s=>s.name===r.source);
