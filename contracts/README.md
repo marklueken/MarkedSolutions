@@ -27,10 +27,13 @@ npm test
 npm run build
 npx netlify login
 npx netlify link --id afaaa233-130f-49a8-b6da-4a149a6d39d6
-npx netlify deploy --prod --dir dist
+npx netlify build
+npx netlify deploy --prod --dir dist --message "contracts $(git rev-parse HEAD)"
 ```
 
-For continuous deployment, connect `marklueken/MarkedSolutions`, select this app branch, and set **Base directory** to `contracts`. The build command is `npm run build`; publish directory is `dist`; functions directory is `netlify/functions` relative to the base. The `contracts/netlify.toml` configures these settings.
+The local `.netlify/` directory is ignored and must stay out of Git. A manual production deploy on a Git-connected project can be replaced by the next production-branch push; verify the configured production branch before deploying.
+
+For continuous deployment, connect `marklueken/MarkedSolutions`, select `contracts-app` until the app is merged, and set **Base directory** to `contracts`. The current `main` branch contains only the public homepage. The build command is `npm run build`; publish directory is `dist`; functions directory is `netlify/functions` relative to the base. The `contracts/netlify.toml` configures these settings. `npm run build` builds the frontend; use the Netlify build to validate function bundling too.
 
 ## Required setup
 
@@ -42,7 +45,7 @@ For continuous deployment, connect `marklueken/MarkedSolutions`, select this app
 6. `AUTOMATION_TOKEN` has been provisioned as a secret. It authenticates internal scheduled/background calls. If replacing it, use at least 32 cryptographically random characters.
 7. Redeploy after changing environment variables. Complete the company profile, test a scan and analysis, then enable daily scanning.
 
-The Netlify project and the two access/automation environment variables were created during implementation. Identity, production upload, DNS, live SAM, and AI require final activation and end-to-end verification.
+An inspection on October 28, 2026 found an existing published production deployment, enabled Identity, and production-scoped access, automation, SAM and Resend variables. This does not establish successful owner sign-in, live SAM/AI operation, or that the uploaded production code matches the latest PR revision. See [ACTIVATION.md](ACTIVATION.md) for the verified evidence and remaining smoke tests. Keep profile automation disabled until those checks pass.
 
 ## Connect only the subdomain
 
@@ -77,10 +80,8 @@ npx netlify dev --offline
 
 The example workspace can be reviewed locally. Identity requires a Netlify deployment for a full sign-in test. Run live smoke tests for login, denied access, manual upload, evidence analysis, SAM import, saved decisions, and scheduled dispatch before enabling unattended use.
 
-### Import partners from resume intake CSV
-In Partners, choose **CSV template**, export your resume intake information using those headers, then **Import CSV**. Preview additions and updates before confirming. `name,email` are required; optional fields are `company,location,skills,certifications,clearance,experience,availability,availability_notes,rate_notes,resume_text,notes`. Each row is one independent subcontractor. Use semicolons between skills and standard CSV quoting for commas, quotes, and multiline resume text. Availability is unknown, available, limited, or unavailable. Unknown fields should remain blank rather than be inferred.
-
-Emails match case-insensitively. Reimports update existing partners, preserve blank fields and saved resume files, and preserve existing archive/analysis preferences. New partners are included in analysis; reanalyze an opportunity to use the updated pool. All rows are validated before writes; conflicting duplicate emails are rejected. Directory limit: 200 partners. File limit: 450 KB; resume_text limit: 50,000 characters, with other limits matching the partner form. This imports extracted information; mailbox monitoring and resume-to-CSV extraction are separate intake steps. CSV imports do not attach original resume files.
+### Partner directory
+Add or edit partners in the directory, or review emailed resumes using the intake flow below. CSV controls are removed from the normal directory interface; the legacy parser and authenticated import endpoint remain for compatibility. Directory limit: 200 partners. Reanalyze opportunities after changing the partner pool. Unknown credentials, availability and rates should remain unverified rather than inferred.
 
 ### Email resume intake with human approval
 IONOS forwards partners@marked.solutions to partners@narieeldia.resend.app. A signed Resend email.received webhook posts to /api/resume-intake/webhook. The server retrieves PDF/text attachments, stores originals privately, and dispatches a background extraction worker. Resume intake shows queued, processing, pending, error, approved and rejected submissions. Check recent emails recovers the latest 25 emails, including emails received before webhook setup. Refresh updates progress.

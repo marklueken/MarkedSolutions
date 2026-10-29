@@ -52,4 +52,5 @@ export default async(req:Request,context:Context)=>{
   return json({error:'Not found.'},404);
  }catch(e){if(e instanceof Response)return json({error:await e.text()},e.status);if(e instanceof z.ZodError)return json({error:'Check the name, email and field lengths.'},400);return json({error:e instanceof Error?e.message:'Request failed.'},500);}
 };
-export const config:Config={path:'/api/resume-intake/:action'};
+// The signed public webhook must never be captured by the authenticated review route.
+export const config:Config={path:'/api/resume-intake/:action',excludedPath:'/api/resume-intake/webhook'};
