@@ -1,0 +1,4 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';
+import {parsePartnerCSV} from '../shared/partner-csv';
+test('resume CSV handles BOM, quoted commas, escaped quotes and multiline text',()=>{const [p]=parsePartnerCSV('\uFEFFname,email,skills,resume_text\r\n"Jane, Doe",JANE@example.com,Cloud,"Said ""hello""\nExperience"\r\n');assert.equal(p.name,'Jane, Doe');assert.equal(p.email,'jane@example.com');assert.equal(p.resume_text,'Said "hello"\nExperience');});
+test('reject malformed rows and repeated email identities before import',()=>{for(const csv of ['name,email\nJane,no-email','name,email\nJane,j@example.com\nJim,J@example.com','name,email\n"Jane,j@example.com','name,email\nJane,j@example.com,extra','name,email,availability\nJane,j@example.com,maybe'])assert.throws(()=>parsePartnerCSV(csv));});
